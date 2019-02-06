@@ -7,6 +7,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Esse é um teste com o react native, o meu nome é Felipe!</Text>
+        <Text>Teste com git</Text>
       </View> 
     );
   }
