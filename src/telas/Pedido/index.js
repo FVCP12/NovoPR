@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ImageBackground, Image, Dimensions, Text, FlatList } from 'react-native';
+import { View, ImageBackground, Image, Dimensions, Text } from 'react-native';
 import { Constants } from "expo";
 
 import img from './img';
@@ -14,40 +14,11 @@ class Mesas extends React.Component {
         super(props);
 
     }
-    _mesasRender = ({item}) => {
-        return <Mesa nome={item.nome} status={item.status} />
-    }
     render() {
         const dim = {
             W: Dimensions.get('window').width,
             H: Dimensions.get('window').height
         }
-        const _mes = [
-            {
-                nome: "1",
-                status: 'Disponivel'
-            },
-            {
-                nome: "2",
-                status: 'Disponivel'
-            },
-            {
-                nome: "3",
-                status: 'Disponivel'
-            },
-            {
-                nome: "4",
-                status: 'Disponivel'
-            },
-            {
-                nome: "5",
-                status: 'Disponivel'
-            },
-            {
-                nome: "6",
-                status: 'Disponivel'
-            },
-        ]
         return (
             <ImageBackground
                 source={img.fundo}
@@ -65,7 +36,7 @@ class Mesas extends React.Component {
                    // backgroundColor: 'blue'
                 }}>
                     <Text style={{
-                        fontSize: 40,
+                        fontSize: 20,
                         fontWeight: 'bold',
                         marginBottom: 10,
                     }}>
@@ -76,11 +47,10 @@ class Mesas extends React.Component {
                     flex:12,
                     //backgroundColor: 'red'
                 }}>
-                    <FlatList
-                        data={_mes}
-                        renderItem={this._mesasRender}
-                        keyExtractor={item=>item.nome}
-                    />
+                    <Mesa nome={'1'} status={'Disponivel'} />
+                    <Mesa nome={'1'} status={'Disponivel'} />
+                    <Mesa nome={'1'} status={'Disponivel'} />
+                    <Mesa nome={'1'} status={'Disponivel'} />
                 </View>
                 <View style={{
                     justifyContent: 'flex-end',
