@@ -64,14 +64,15 @@ class Pedido extends React.Component {
                 </View>
                 <View style={{
                     flex: 11,
-                    //backgroundColor: 'red'
+                    backgroundColor: 'red'
                 }}>
                     <Text>FelipeCorpoDoPedido</Text>
-                </View>
-                <View style={{
-                    marginLeft: dim.W * 3.8/5
-                }}>
-                    <Icon name='plus-circle' size={40} color='rgb(238,206,31)' />
+                    <View style={{
+                        marginBottom: 1,
+                        marginRight: 10
+                    }}>
+                        <Icon name='plus-circle' size={60} color='rgb(238,206,31)' />
+                    </View>
                 </View>
                 <View style={{
                     justifyContent: 'flex-end',

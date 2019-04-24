@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, ImageBackground, Image, Dimensions, Text, FlatList } from 'react-native';
+import { View, ImageBackground, Image, Dimensions, Text, FlatList, ActivityIndicator } from 'react-native';
 import { Constants } from "expo";
 
 import img from './img';
 import Mesa from './Mesa';
-import BarInf from '../../BarInf'
+import BarInf from '../../BarInf';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Mesas extends React.Component {
     static navigationOptions = {
@@ -13,8 +14,32 @@ class Mesas extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            _mes: [],
+            retornoOk: false,
+            retornoErro: false,
+        }
+
     }
-    _mesasRender = ({item}) => {
+    atuLisMes = () => {
+        fetch('http://192.168.0.14:3000/Mesas')
+            .then(response => response.json())
+            .then(responseJson => {
+                this.setState({
+                    _mes: responseJson,
+                    retornoOk: true
+                });
+            })
+            .catch(
+                this.setState({
+                    retornoErro: true
+                })
+            )
+    }
+    componentDidMount() {
+        this.atuLisMes();
+    }
+    _mesasRender = ({ item }) => {
         return <Mesa nome={item.nome} status={item.status} />
     }
     render() {
@@ -22,33 +47,8 @@ class Mesas extends React.Component {
             W: Dimensions.get('window').width,
             H: Dimensions.get('window').height
         }
-        const _mes = [
-            {
-                nome: "1",
-                status: 'Disponivel'
-            },
-            {
-                nome: "2",
-                status: 'Disponivel'
-            },
-            {
-                nome: "3",
-                status: 'Disponivel'
-            },
-            {
-                nome: "4",
-                status: 'Disponivel'
-            },
-            {
-                nome: "5",
-                status: 'Disponivel'
-            },
-            {
-                nome: "6",
-                status: 'Disponivel'
-            },
-        ]
         return (
+
             <ImageBackground
                 source={img.fundo}
                 style={{
@@ -61,8 +61,8 @@ class Mesas extends React.Component {
                 imageStyle={{ resizeMode: 'stretch' }}
             >
                 <View style={{
-                    flex: 1,
-                   // backgroundColor: 'blue'
+                    flex: 2,
+                    // backgroundColor: 'blue'
                 }}>
                     <Text style={{
                         fontSize: 40,
@@ -70,26 +70,41 @@ class Mesas extends React.Component {
                         marginBottom: 10,
                     }}>
                         Mesas
-                </Text>
+                            </Text>
                 </View>
-                <View style={{
-                    flex:12,
-                    //backgroundColor: 'red'
-                }}>
-                    <FlatList
-                        data={_mes}
-                        renderItem={this._mesasRender}
-                        keyExtractor={item=>item.nome}
-                    />
-                </View>
+                {
+                    this.state.retornoOk ?
+                        <View style={{
+                            flex: 12,
+                            //backgroundColor: 'red'
+                        }}>
+                            <FlatList
+                                data={this.state._mes}
+                                renderItem={this._mesasRender}
+                                keyExtractor={item => item.id}
+                            />
+                        </View>
+                        : this.state.retornoErro ?
+                            <View style={{
+                                flex:12,
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                                <Icon name='frown-o' size={80} color='rgb(238,206,31)' />
+                                <Text>Erro ao conectar com o servidor!</Text>
+                            </View>
+                            :
+                            <ActivityIndicator size="large" color="rgb(238,206,31)" />
+                }
                 <View style={{
                     justifyContent: 'flex-end',
                     flex: 2,
-                   // backgroundColor: 'green'
+                    // backgroundColor: 'green'
                 }}>
                     <BarInf />
                 </View>
             </ImageBackground>
+
         );
     }
 

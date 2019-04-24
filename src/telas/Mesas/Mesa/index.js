@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Image, Dimensions, Text } from 'react-native';
-import { Constants } from "expo";
+import { View, Image, Dimensions, Text, TouchableOpacity } from 'react-native';
 
 import img from './img';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -25,13 +24,21 @@ const Mesa = props => {
                         fontWeight: 'bold',
                         marginBottom: 10,
                     }}>Mesa:{props.nome}</Text>
-                    <Text>Status:{props.status}</Text>
+                    {
+                        props.status ?
+                            <Text style={{color: 'red'}}>Status: Ocupado</Text>
+                        :
+                            <Text style={{color: 'green'}}>Status: Disponível</Text>
+                    }
+                    
                 </View>
-                <View style={{
+                <TouchableOpacity style={{
                     justifyContent:'center',
-                }}>
+                }}
+                //onPress={}
+                >
                     <Icon name='chevron-right' size={30} color='#999' />
-                </View>
+                </TouchableOpacity>
             </View>
             <Image source={img.divis}
                 style={{
