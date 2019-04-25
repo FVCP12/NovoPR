@@ -11,6 +11,6 @@ const AppNavegarPaginas = createStackNavigator({
   Logar: Login,
   Mesas: Mesas,
   Pedido: Pedido
-}, { initialRouteName: 'Mesas'});
+}, { initialRouteName: 'Pedido'});
 
 export default createAppContainer(AppNavegarPaginas);

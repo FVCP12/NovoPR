@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, ImageBackground, Image, Dimensions, Text } from 'react-native';
+import { View, ImageBackground, Image, Dimensions, Text, TouchableOpacity } from 'react-native';
 import { Constants } from "expo";
 
 import img from './img';
 import BarInf from '../../BarInf';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ItemPedido from './ItemPedido';
 
 class Pedido extends React.Component {
     static navigationOptions = {
@@ -12,6 +13,11 @@ class Pedido extends React.Component {
     }
     constructor(props) {
         super(props);
+
+        this.state = {
+            status: true, // indica se a mesa tem pedido ou não
+
+        }
 
     }
     render() {
@@ -66,12 +72,84 @@ class Pedido extends React.Component {
                     flex: 11,
                     //backgroundColor: 'red'
                 }}>
-                    <Text>FelipeCorpoDoPedido</Text>
+                    <ItemPedido />
+                    <ItemPedido />
+                    <ItemPedido />
+                    <ItemPedido />
+
                 </View>
                 <View style={{
-                    marginLeft: dim.W * 3.8/5
+                    flex: 1.5,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    width: dim.W / 1.2,
+                    //marginLeft: dim.W * 3.8/5
                 }}>
-                    <Icon name='plus-circle' size={40} color='rgb(238,206,31)' />
+                    {
+                        this.state.status ?
+                            <View style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                width: dim.W / 1.5,
+                            }}>
+                                <TouchableOpacity style={{
+                                    backgroundColor: 'rgb(238,206,31)',
+                                    borderRadius: 45
+                                }}>
+                                    <Text style={{
+                                        fontSize: 15,
+                                        fontWeight: 'bold',
+                                        width: dim.W / 4,
+                                        height: dim.H / 20,
+                                        color: 'white',
+                                        textAlign: 'center',
+                                        textAlignVertical: 'center'
+                                    }}>
+                                        Finalizar
+                                    </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{
+                                    backgroundColor: 'red',
+                                    borderRadius: 45
+                                }}>
+                                    <Text style={{
+                                        fontSize: 15,
+                                        fontWeight: 'bold',
+                                        width: dim.W / 4,
+                                        height: dim.H / 20,
+                                        color: 'white',
+                                        textAlign: 'center',
+                                        textAlignVertical: 'center'
+                                    }}>
+                                        Cancelar
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                            :
+                            <View>
+                                <TouchableOpacity style={{
+                                    backgroundColor: 'green',
+                                    borderRadius: 45
+                                }}>
+                                    <Text style={{
+                                        fontSize: 15,
+                                        fontWeight: 'bold',
+                                        width: dim.W / 4,
+                                        height: dim.H / 20,
+                                        color: 'white',
+                                        textAlign: 'center',
+                                        textAlignVertical: 'center'
+                                    }}>
+                                        Iniciar
+                                </Text>
+                                </TouchableOpacity>
+                            </View>
+                    }
+                    <TouchableOpacity>
+                        <Icon name='plus-circle' size={40} color='rgb(238,206,31)' />
+                    </TouchableOpacity>
                 </View>
                 <View style={{
                     justifyContent: 'flex-end',

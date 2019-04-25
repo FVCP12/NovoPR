@@ -1,90 +1,59 @@
 import React from 'react';
-import { View, ImageBackground, Image, Dimensions, Text } from 'react-native';
-import { Constants } from "expo";
+import { View, Image, Dimensions, Text, TouchableOpacity } from 'react-native';
 
 import img from './img';
-import BarInf from '../../BarInf';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-class Pedido extends React.Component {
-    static navigationOptions = {
-        header: null
+const ItemPedido = props => {
+    const dim = {
+        W: Dimensions.get('window').width,
+        H: Dimensions.get('window').height
     }
-    constructor(props) {
-        super(props);
+    return (
 
-    }
-    render() {
-        const dim = {
-            W: Dimensions.get('window').width,
-            H: Dimensions.get('window').height
-        }
-        return (
-            <ImageBackground
-                source={img.fundo}
-                style={{
-                    flex: 1,
-                    marginTop: Constants.statusBarHeight,
-                    alignItems: 'center',
-                    paddingTop: dim.H / 20,
-                    paddingBottom: dim.H / 20
-                }}
-                imageStyle={{ resizeMode: 'stretch' }}
-            >
-                <View style={{
-                    flex: 2,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    //backgroundColor: 'blue',
-                    width: dim.W * 2 / 3
-                }}>
-                    <Text style={{
-                        fontSize: 25,
-                        fontWeight: 'bold',
-                        marginBottom: 10,
-                    }}>
-                        Mesa: 1
-                    </Text>
-                    <View style={{
-                        alignItems: 'center'
-                    }}
-                    >
+        <View style={{
+            justifyContent: 'center'
+        }}>
+            <View style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+            }}>
+                <View>
+                    <View>
                         <Text style={{
                             fontSize: 20,
                             fontWeight: 'bold',
                             marginBottom: 10,
-                        }}
-                        >Valor</Text>
-                        <Text style={{
-                            fontSize: 15,
-                            marginBottom: 10,
-                        }}
-                        >30,00</Text>
+                        }}>Item:{props.nomItem}</Text>
                     </View>
-                </View>
-                <View style={{
-                    flex: 11,
-                    backgroundColor: 'red'
-                }}>
-                    <Text>FelipeCorpoDoPedido</Text>
                     <View style={{
-                        marginBottom: 1,
-                        marginRight: 10
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        width: dim.W / 1.8,
                     }}>
-                        <Icon name='plus-circle' size={60} color='rgb(238,206,31)' />
+                        <Text>Valor Uni:{props.ValorUni}</Text>
+                        <Text>Qtd:{props.qtd}</Text>
+                        <Text>Valor:{props.Valor}</Text>
                     </View>
                 </View>
-                <View style={{
-                    justifyContent: 'flex-end',
-                    flex: 2,
-                    // backgroundColor: 'green'
-                }}>
-                    <BarInf />
-                </View>
-            </ImageBackground>
-        );
-    }
+                <TouchableOpacity style={{
+                    justifyContent: 'center',
+                }}
+                //onPress={}
+                >
+                    <Icon name='edit' size={30} color='#999' />
+                </TouchableOpacity>
+            </View>
+            <Image source={img.divis}
+                style={{
+                    width: dim.W / 1.2,
+                    paddingBottom: 10,
+                    paddingTop: 10
+                }}
+            />
+        </View>
 
-}
+    );
+};
 
-export default Pedido;
+export default ItemPedido;
